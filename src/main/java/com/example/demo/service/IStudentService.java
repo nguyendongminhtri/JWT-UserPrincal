@@ -16,4 +16,5 @@ public interface IStudentService {
     List<Student> findAllByNameContaining(String name);
     List<Student> findByNameStudent(@Param("name") String name);
     List<Student> listStudetBetweenDate(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    List<Student> findAllByUserId(Long id);
 }

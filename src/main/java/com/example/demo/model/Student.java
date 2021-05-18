@@ -13,7 +13,6 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    @DateTimeFormat(pattern="dd/MM/yyyy")
     private LocalDate birthDay;
     @ManyToOne
     User user;

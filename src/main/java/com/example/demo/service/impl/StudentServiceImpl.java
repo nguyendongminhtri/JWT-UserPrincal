@@ -56,4 +56,10 @@ public class StudentServiceImpl implements IStudentService {
     public List<Student> listStudetBetweenDate(LocalDate startDate, LocalDate endDate) {
         return studentRepository.listStudetBetweenDate(startDate,endDate);
     }
+
+    @Override
+    public List<Student> findAllByUserId(Long id) {
+
+        return studentRepository.findAllByUserId(id);
+    }
 }

@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Student;
+import com.example.demo.model.User;
+import com.example.demo.security.userprincal.UserDetailsServiceImpl;
 import com.example.demo.service.impl.StudentServiceImpl;
+import com.example.demo.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -18,6 +21,8 @@ import java.util.Optional;
 public class StudentController {
     @Autowired
     StudentServiceImpl studentService;
+    @Autowired
+    UserServiceImpl userService;
     @GetMapping()
     public ResponseEntity<?> listStudent(){
         List<Student> students = studentService.findAll();
@@ -37,9 +42,16 @@ public class StudentController {
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
     @GetMapping("/search/between/date")
-    public ResponseEntity<?> searchBetWeenDate(@Param("startDate") LocalDate startDate, @Param("endDate")LocalDate endDate){
+    public ResponseEntity<?> searchBetWeenDate(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate")LocalDate endDate){
         List<Student> students = studentService.listStudetBetweenDate(startDate,endDate);
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
+    @GetMapping("/search-by-user/{id}")
+    public ResponseEntity<?> findByUser(@PathVariable Long id){
+        Optional<User> user = userService.findById(id);
+        List<Student> studentList = studentService.findAllByUserId(user.get().getId());
+        return new ResponseEntity<>(studentList,HttpStatus.OK);
+    }
+
 
 }
